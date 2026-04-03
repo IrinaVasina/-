@@ -1,0 +1,7 @@
+# SNAP graph format
+# Simple test graph
+0	1
+1	2
+2	3
+0	3
+3	4

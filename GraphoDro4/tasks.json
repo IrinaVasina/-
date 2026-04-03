@@ -1,0 +1,80 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build main",
+            "type": "shell",
+            "command": "g++",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "args": [
+                "-std=c++17",
+                "-Wall",
+                "-Wextra",
+                "-Iexternal",
+                "-I.",
+                "main.cpp",
+                "src/graph/Graph.cpp",
+                "src/graph/generators/GraphGenerators.cpp",
+                "src/metrics/GraphMetrics.cpp",
+                "src/graph/parsers/*.cpp",
+                "src/graph/serializers/GraphVizSerializer.cpp",
+                "-o",
+                "main.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build test",
+            "type": "shell",
+            "command": "g++",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "args": [
+                "-std=c++17",
+                "-Wall",
+                "-Wextra",
+                "-Iexternal",
+                "-I.",
+                "tests/test_serializers.cpp",
+                "src/graph/Graph.cpp",
+                "src/graph/generators/GraphGenerators.cpp",
+                "src/metrics/GraphMetrics.cpp",
+                "src/graph/parsers/*.cpp",
+                "src/graph/serializers/GraphVizSerializer.cpp",
+                "-o",
+                "test_serializers.exe"
+            ],
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "run main",
+            "type": "shell",
+            "command": ".\\main.exe",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "dependsOn": "build main",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "run test",
+            "type": "shell",
+            "command": ".\\test_serializers.exe",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "dependsOn": "build test",
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}
