@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <functional>
 
-// Подключаем наши структуры
 #include "prefix_sum.hpp"
 #include "rmq_naive.hpp"
 #include "sqrt_decomposition.hpp"
@@ -14,7 +13,6 @@
 #include "fenwick_tree.hpp"
 #include "sparse_table.hpp"
 
-// Глобальный счетчик (определение)
 long long operations = 0;
 
 struct Measurement {
@@ -23,7 +21,6 @@ struct Measurement {
     double avg_query_ops;
 };
 
-// Генерация данных
 std::vector<int> genArray(int n) {
     std::vector<int> a(n);
     std::random_device rd;
@@ -33,7 +30,6 @@ std::vector<int> genArray(int n) {
     return a;
 }
 
-// Генерация 2D матрицы
 std::vector<std::vector<int>> genMatrix(int n, int m) {
     std::vector<std::vector<int>> mat(n, std::vector<int>(m));
     std::random_device rd;
@@ -72,7 +68,6 @@ int main() {
 
     std::cout << "=== Starting measurements ===" << std::endl;
 
-    // 1. Prefix Sum 1D
     std::cout << "1. Testing Prefix Sum 1D..." << std::endl;
     {
         PrefixSum1D ps;
@@ -93,7 +88,6 @@ int main() {
         saveCSV("PrefixSum1D", res); res.clear();
     }
 
-    // 2. Prefix Sum 2D (НОВОЕ!)
     std::cout << "2. Testing Prefix Sum 2D..." << std::endl;
     {
         PrefixSum2D ps2d;
@@ -124,7 +118,6 @@ int main() {
         saveCSV("PrefixSum2D", res); res.clear();
     }
 
-    // 3. RMQ Naive (O(n^2) - маленькие размеры!)
     std::cout << "3. Testing RMQ Naive..." << std::endl;
     {
         RMQAllSegments rmq;
@@ -145,7 +138,6 @@ int main() {
         saveCSV("RMQ_Naive", res); res.clear();
     }
 
-    // 4. Sqrt Decomposition
     std::cout << "4. Testing Sqrt Decomposition..." << std::endl;
     {
         SqrtDecomposition<int> sq([](int a, int b){return a+b;}, 0);
@@ -166,7 +158,6 @@ int main() {
         saveCSV("SqrtDecomposition", res); res.clear();
     }
 
-    // 5. Segment Tree
     std::cout << "5. Testing Segment Tree..." << std::endl;
     {
         SegmentTree<int> st([](int a, int b){return std::min(a,b);}, 1e9);
@@ -187,7 +178,6 @@ int main() {
         saveCSV("SegmentTree", res); res.clear();
     }
 
-    // 6. Segment Tree Update (НОВОЕ!)
     std::cout << "6. Testing Segment Tree Update..." << std::endl;
     {
         SegmentTree<int> st([](int a, int b){return a+b;}, 0);
@@ -197,7 +187,6 @@ int main() {
             st.build(arr);
             long long b_ops = st.getBuildOps();
             
-            // Замер обновления
             operations = 0;
             int num_updates = 1000;
             std::random_device rd;
@@ -217,7 +206,6 @@ int main() {
         saveCSV("SegmentTree_Update", res); res.clear();
     }
 
-    // 7. Fenwick Tree
     std::cout << "7. Testing Fenwick Tree..." << std::endl;
     {
         FenwickTree<int> ft;
@@ -238,7 +226,6 @@ int main() {
         saveCSV("FenwickTree", res); res.clear();
     }
 
-    // 8. Fenwick Tree Update (НОВОЕ!)
     std::cout << "8. Testing Fenwick Tree Update..." << std::endl;
     {
         FenwickTree<int> ft;
@@ -248,7 +235,6 @@ int main() {
             ft.build(arr);
             long long b_ops = ft.getBuildOps();
             
-            // Замер обновления
             operations = 0;
             int num_updates = 1000;
             std::random_device rd;
@@ -268,7 +254,6 @@ int main() {
         saveCSV("FenwickTree_Update", res); res.clear();
     }
 
-    // 9. Sparse Table
     std::cout << "9. Testing Sparse Table..." << std::endl;
     {
         SparseTable st;
